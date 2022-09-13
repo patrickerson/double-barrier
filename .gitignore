@@ -26,3 +26,6 @@ hs_err_pid*
 .idea/
 out/
 double-barrier.iml
+
+# generated files
+*.txt

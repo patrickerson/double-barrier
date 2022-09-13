@@ -1,27 +1,41 @@
 package Worker;
 
-import FileManipulator.FileManipulatorController;
 
 import java.util.Arrays;
 
 public class WorkerController {
     WorkerModel workerModel;
+    FileManipulatorWorkerRandom fileRandom;
+    FileManipulatorWorkerSorted fileSorted;
 
     public WorkerController(){
         workerModel = new WorkerModel();
-        setNumbers();
+        fileRandom = new FileManipulatorWorkerRandom();
+        fileSorted = new FileManipulatorWorkerSorted();
+        setRandomNumbers();
     }
 
     int[] getNumberFromFile(){
-        FileManipulatorController fileManipulatorController;
-        fileManipulatorController = new FileManipulatorController();
-        return fileManipulatorController.readFile();
-
+        return fileRandom.readFile();
     }
 
-    void setNumbers(){
+    void setRandomNumbers(){
+        fileRandom.generateFile();
         int[] numbers = getNumberFromFile();
-        Arrays.sort(numbers);
         workerModel.setNumbers(numbers);
     }
+
+    void setSortedNumbers(){
+        int[] randomNumbers = workerModel.getNumbers();
+        Arrays.sort(randomNumbers);
+        workerModel.setNumbers(randomNumbers);
+        int[] sortedNumbers = workerModel.getNumbers();
+        fileSorted.setFilename();
+        fileSorted.writeFile(sortedNumbers);
+    }
+    WorkerModel getModel(){
+        return workerModel;
+    }
+
+
 }
