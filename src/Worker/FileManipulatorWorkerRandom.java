@@ -23,7 +23,7 @@ public class FileManipulatorWorkerRandom extends FileManipulator {
         return super.readFile(filename);
     }
     public void generateFile() {
-        filename = directory + Config.fileGenId[0] + extension;
+        filename = directory + Config.fileGenIdRando[0] + extension;
         Random random = new Random();
         int[] randomNumbers = new int[Config.vectorLen];
         // It's possible remove this for and make the writer directly in file, but we will lose readily
@@ -31,6 +31,7 @@ public class FileManipulatorWorkerRandom extends FileManipulator {
             randomNumbers[i] = random.nextInt(Config.maxRandom);
         }
         writeFile(filename, randomNumbers);
+        Config.fileGenIdRando[0]++;
     }
 
 

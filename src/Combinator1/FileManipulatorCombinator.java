@@ -12,9 +12,12 @@ import java.util.List;
 
 public class FileManipulatorCombinator extends FileManipulator {
 
-    static final String directory = "merges/";
-    String filename;
 
+
+
+    FileManipulatorCombinator(){
+        setDirectory("merges");
+    }
 
     public void setFilename() {
         StringBuilder mergeName = new StringBuilder();
@@ -23,13 +26,15 @@ public class FileManipulatorCombinator extends FileManipulator {
             mergeName.append(Config.fileGenId[0] - i);
         }
 
-        filename = directory + mergeName.toString() + ".txt";
+        setFilename(mergeName.toString());
+
     }
 
     public int[][] getFiles(){
         int[][] matrixNumbers = new int[4][Config.vectorLen];
 
         for (int i = 0; i < 4; i++) {
+            System.out.println(Config.filenames.toString());
             matrixNumbers[i] = readFile(Config.filenames.get(i));
         }
         return matrixNumbers;
@@ -42,7 +47,7 @@ public class FileManipulatorCombinator extends FileManipulator {
             for (Integer number:
                  mergedNumbers) {
 
-                mergeFile.println(number);
+                mergeFile.println(number.intValue());
             }
             mergeFile.close();
         } catch (FileNotFoundException e) {

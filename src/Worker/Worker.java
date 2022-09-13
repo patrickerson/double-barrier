@@ -9,6 +9,7 @@ public class Worker extends Thread{
     Semaphore mutex;
     Semaphore barrierIn;
     Semaphore barrierOut;
+    Semaphore signal;
 
     public Worker(){
 
@@ -16,6 +17,7 @@ public class Worker extends Thread{
         mutex = Config.mutex;
         barrierIn = Config.barrierIn;
         barrierOut = Config.barrierOut;
+        signal = Config.signal;
     }
 
 
@@ -23,6 +25,7 @@ public class Worker extends Thread{
     @Override
     public void run() {
         try {
+
             mutex.acquire();
             controller.setRandomNumbers();
             Config.counter++;
@@ -30,20 +33,26 @@ public class Worker extends Thread{
                 barrierOut.acquire();
                 barrierIn.release();
             }
-
             mutex.release();
             barrierIn.acquire();
             barrierIn.release();
             mutex.acquire();
-            controller.setSortedNumbers();
             Config.counter--;
+
+            controller.setSortedNumbers();
+            controller.fileSorted.addFileToList();
             if(Config.counter==0){
                 barrierIn.acquire();
                 barrierOut.release();
             }
+
+
+            signal.release();
             mutex.release();
             barrierOut.acquire();
-            barrierIn.release();
+            barrierOut.release();
+
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

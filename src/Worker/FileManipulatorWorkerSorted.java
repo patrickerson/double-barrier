@@ -11,9 +11,9 @@ public class FileManipulatorWorkerSorted extends FileManipulator {
 
     public void setFilename(){
         super.setFilename(String.valueOf(Config.fileGenId[0]));
-        addFileToList();
+
     }
-    private void addFileToList(){
+    public void addFileToList(){
         Config.filenames.add(filename);
         Config.fileGenId[0]++;
     }

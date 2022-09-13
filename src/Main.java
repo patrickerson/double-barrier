@@ -1,3 +1,4 @@
+import Combinator1.Combinator;
 import Combinator1.CombinatorController;
 import Combinator1.CombinatorModel;
 import Worker.Worker;
@@ -18,11 +19,33 @@ public class Main {
         Worker worker3 = new Worker();
         Worker worker4 = new Worker();
 
+        Combinator combinator = new Combinator();
 
-        System.out.println("file id: " + Config.fileGenId[0]);
-        System.out.println(Config.filenames.toString());
-        CombinatorController combinator = new CombinatorController();
-        combinator.mergeFile();
+        worker1.start();
+        worker2.start();
+        worker3.start();
+        worker4.start();
+
+        combinator.start();
+
+        try {
+            worker1.join();
+            worker2.join();
+            worker3.join();
+            worker4.join();
+
+            combinator.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+//        System.out.println("file id: " + Config.fileGenId[0]);
+//        System.out.println(Config.filenames.toString());
+//        CombinatorController combinator = new CombinatorController();
+//        combinator.mergeFile();
 
     }
+
+
 }

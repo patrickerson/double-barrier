@@ -12,7 +12,6 @@ public class WorkerController {
         workerModel = new WorkerModel();
         fileRandom = new FileManipulatorWorkerRandom();
         fileSorted = new FileManipulatorWorkerSorted();
-        setRandomNumbers();
     }
 
     int[] getNumberFromFile(){
@@ -28,6 +27,7 @@ public class WorkerController {
     void setSortedNumbers(){
         int[] randomNumbers = workerModel.getNumbers();
         Arrays.sort(randomNumbers);
+
         workerModel.setNumbers(randomNumbers);
         int[] sortedNumbers = workerModel.getNumbers();
         fileSorted.setFilename();
