@@ -20,14 +20,16 @@ public class Combinator extends Thread {
     @Override
     public void run() {
 
-        try {
-            signal.acquire();
-            mutex.acquire();
+        while (true){
+            try {
+                signal.acquire();
+                mutex.acquire();
 
-            controller.mergeFile();
-            mutex.release();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+                controller.mergeFile();
+                mutex.release();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 

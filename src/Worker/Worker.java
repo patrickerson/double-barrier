@@ -26,31 +26,34 @@ public class Worker extends Thread{
     public void run() {
         try {
 
-            mutex.acquire();
-            controller.setRandomNumbers();
-            Config.counter++;
-            if (Config.counter == 4){
-                barrierOut.acquire();
-                barrierIn.release();
-            }
-            mutex.release();
-            barrierIn.acquire();
-            barrierIn.release();
-            mutex.acquire();
-            Config.counter--;
+           while(true){
+               mutex.acquire();
+               controller.setRandomNumbers();
+               Config.counter++;
+               if (Config.counter == 4){
+                   barrierOut.acquire();
+                   barrierIn.release();
+               }
+               mutex.release();
+               barrierIn.acquire();
+               barrierIn.release();
+               mutex.acquire();
+               Config.counter--;
 
-            controller.setSortedNumbers();
-            controller.fileSorted.addFileToList();
-            if(Config.counter==0){
-                barrierIn.acquire();
-                barrierOut.release();
-            }
+               controller.setSortedNumbers();
+               controller.fileSorted.addFileToList();
+               if(Config.counter==0){
+                   barrierIn.acquire();
+                   barrierOut.release();
+                   signal.release();
+               }
 
 
-            signal.release();
-            mutex.release();
-            barrierOut.acquire();
-            barrierOut.release();
+
+               mutex.release();
+               barrierOut.acquire();
+               barrierOut.release();
+           }
 
 
         } catch (InterruptedException e) {

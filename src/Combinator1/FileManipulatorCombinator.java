@@ -35,7 +35,9 @@ public class FileManipulatorCombinator extends FileManipulator {
 
         for (int i = 0; i < 4; i++) {
             System.out.println(Config.filenames.toString());
-            matrixNumbers[i] = readFile(Config.filenames.get(i));
+            String t = Config.filenames.get(i);
+
+            matrixNumbers[i] = readFile(t);
         }
         return matrixNumbers;
     }
