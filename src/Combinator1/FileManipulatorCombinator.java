@@ -13,17 +13,21 @@ import java.util.List;
 public class FileManipulatorCombinator extends FileManipulator {
 
 
-
+    int fileGenId;
 
     FileManipulatorCombinator(){
         setDirectory("merges");
     }
 
+    public void setFileGenId(int fileGenId) {
+        this.fileGenId = fileGenId;
+    }
+
     public void setFilename() {
         StringBuilder mergeName = new StringBuilder();
         for (int i = 4; i > 0; i--) {
-            Config.filenames.remove(Config.filenames.size()-1);
-            mergeName.append(Config.fileGenId[0] - i);
+            Config.mergedFilenames.remove(Config.mergedFilenames.size()-1);
+            mergeName.append(fileGenId - i);
         }
 
         setFilename(mergeName.toString());
@@ -34,8 +38,7 @@ public class FileManipulatorCombinator extends FileManipulator {
         int[][] matrixNumbers = new int[4][Config.vectorLen];
 
         for (int i = 0; i < 4; i++) {
-            System.out.println(Config.filenames.toString());
-            String t = Config.filenames.get(i);
+            String t = Config.mergedFilenames.get(i);
 
             matrixNumbers[i] = readFile(t);
         }

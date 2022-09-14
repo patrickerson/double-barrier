@@ -19,14 +19,22 @@ public class Combinator extends Thread {
 
     @Override
     public void run() {
-
-        while (true){
+        int count = 0;
+        while (count<Config.n){
+            count++;
             try {
                 signal.acquire();
                 mutex.acquire();
+                controller.setOrders();
+                mutex.release();
 
                 controller.mergeFile();
-                mutex.release();
+
+                System.out.print("\rprocessing: " + count + "/" + Config.n);
+
+
+
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

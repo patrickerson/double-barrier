@@ -40,11 +40,6 @@ public class Main {
         }
 
 
-//        System.out.println("file id: " + Config.fileGenId[0]);
-//        System.out.println(Config.filenames.toString());
-//        CombinatorController combinator = new CombinatorController();
-//        combinator.mergeFile();
-
     }
 
 

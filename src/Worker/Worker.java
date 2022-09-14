@@ -25,8 +25,9 @@ public class Worker extends Thread{
     @Override
     public void run() {
         try {
-
-           while(true){
+            int count = 0;
+           while(count<Config.n){
+               count++;
                mutex.acquire();
                controller.setRandomNumbers();
                Config.counter++;

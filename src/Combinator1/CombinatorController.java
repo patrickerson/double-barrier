@@ -1,5 +1,7 @@
 package Combinator1;
 
+import config.Config;
+
 import java.util.Arrays;
 
 public class CombinatorController {
@@ -26,6 +28,15 @@ public class CombinatorController {
                 model.addSet(number);
             }
         }
+    }
+
+    public void setOrders(){
+        for (int i = 0; i < 4; i++) {
+            String filename = Config.filenames.get(0);
+            Config.mergedFilenames.add(filename);
+            Config.filenames.remove(0);
+        }
+        fileManipulator.setFileGenId(Config.fileGenId[0]);
     }
 
     public void mergeFile(){
